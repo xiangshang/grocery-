@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function* next_id() {
+				let current_id = 0;
+
+				while(true) yield current_id++;
+			}
+			let g = next_id();
+			for(x = 1; x < 100; x++) {
+				console.log(g.next().value)
+				//  if (g.next().value !== x) {
+				//      console.log('测试失败!');
+				//      break;
+				//  }
+			}
+		</script>
+	</body>
+
+</html>

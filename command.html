@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="btn1">btn1</div>
+		<script type="text/javascript">
+			var setCommand =  function(button, command){
+				button.onclick = function() {
+					command.execute();
+				}
+			}
+				
+			<!--命令-->
+			var MenuBar = {
+				refresh: function() {
+					console.log('refresh');
+				}
+			}
+			
+			var SubMenu = {
+				add: function() {
+					console.log('add')
+				},
+				del: function() {
+					console.log('del')
+				}
+			}
+			//统一封装，并且和操作对象关联
+//			var RefreshMenuBarCommand = function(receiver) {
+//				this.receiver = receiver;
+//			}
+//			RefreshMenuBarCommand.prototype.execute = function() {
+//				this.receiver.refresh();
+//			}
+			
+			class RefreshMenuBarCommand {
+				constructor(receiver) {
+					this.receiver = receiver;
+				}
+				execute() {
+					this.receiver.refresh();
+				}
+			}
+			
+			//应用
+			var refreshMenuBarCommand = new RefreshMenuBarCommand(MenuBar);
+			setCommand(document.getElementById('btn1'), refreshMenuBarCommand)
+		</script>
+		
+		
+	</body>
+</html>

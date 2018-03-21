@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var Observer = {}
+			Observer.eventlist = [];
+			Observer.Listner = function(fn) {
+				this.eventlist.push(fn)
+			}
+			
+			Observer.Sender = function() {
+				for(var i in this.eventlist) {
+					this.eventlist[i]();
+				}
+			}
+			
+			Observer.Listner(function() {console.log('1000')})
+			Observer.Sender()
+			
+			
+			var observer1 = {};
+			observer1.eventlist = {}
+			observer1.listener = function(key,  fn) {
+				if(key in this.eventlist) {
+					this.eventlist[key].push(fn)
+				} else {
+					this.eventlist[key] = [];
+					this.eventlist[key].push(fn)
+				}
+			}
+			observer1.sender = function(key) {
+				console.log(this.eventlist)
+				if(key in this.eventlist){
+					for(var i in this.eventlist[key]){
+						this.eventlist[key][i]();
+					}
+				}
+			}
+			
+			observer1.listener('event1', function() {
+				console.log('evnet1')
+			})
+			observer1.listener('event1', function() {
+				console.log('evnet11')
+			})
+			observer1.listener('event2', function() {
+				console.log('evnet2')
+			})
+			observer1.listener('event2', function() {
+				console.log('evnet22')
+			})
+			observer1.sender('event1')
+			observer1.sender('event2')
+			
+			
+			var test = {
+				ab: 12,
+				get: function() {
+					return this.ab;
+				}
+			}
+			
+			console.log(test.get())
+			
+			window.ab = '34567'
+			var getter = test.get
+			console.log(getter())
+			
+			
+			
+			var throttle_with_lock = (f, th = 100) => {
+				console.log(f)
+  let lock = false
+  return () => {
+    if(lock) {
+      return
+    }
+    f.apply(null, arguments)
+    setTimeout( () => {
+      lock = false
+    }, th)
+  }
+}
+		</script>
+	</body>
+</html>

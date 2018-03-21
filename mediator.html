@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="form-container">
+			<div class="label">品牌</div>
+			<div class="form-item">
+				<select name="" id='brand'>
+					<option value="Nokia">Nokia</option>
+					<option value="Apple">Apple</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-container">
+			<div class="label">颜色</div>
+			<div class="form-item">
+				<select name="" id='color'>
+					<option value="red">红</option>
+					<option value="yellow">黄</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-container">
+			<div class="label">数量</div>
+			<div class="form-item">
+				<select name="" id='count'>
+					<option value="1">1</option>
+					<option value="2">2</option>
+				</select>
+			</div>
+		</div>
+		<button id='btn'>
+			
+		</button>
+		
+		<script type="text/javascript">
+			var store = {Nokia:{ count: 3, color: ['red', 'yellow']},
+			Apple:{count: 1, color: ['red']}
+		}
+			 
+			var mediate = (function  () {
+				
+				let chooseItems = {brand: '', count: 0, color: ''}
+				return {
+					changed: function(obj) {
+						let key = obj.id;
+						chooseItems[key] = obj.value;
+						if(chooseItems.brand in store && store[chooseItems.brand].count >= chooseItems.count &&   store[chooseItems.brand].color.includes(chooseItems.color)){
+							
+							document.getElementById('btn').innerHTML = '加入购物车'
+						} else {
+							document.getElementById('btn').innerHTML = '请选择有效数据'
+						}
+						
+					}
+				}
+				
+			})()
+			 
+			document.getElementById('brand').onchange = function() {
+				mediate.changed(this);
+			}
+			document.getElementById('color').onchange = function() {
+				mediate.changed(this);
+			}
+			document.getElementById('count').onchange = function() {
+				mediate.changed(this);
+			}
+		</script>
+	</body>
+</html>

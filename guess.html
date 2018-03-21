@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="div1">qwer</div>
+		<script type="text/javascript">
+			function factorial(n) {
+				if(n == 1 ) return 1;
+				return factorial(n-1)*n;
+			}
+			function guessExpression(exp){
+  				let init = exp.replace(/(\w*)\n\*\s*(\w*)\W*(\d*)/, '$1,$2,$3').split(',')
+  				let num1 = init[0].replace(/\s*/, '')
+  				let num2 = init[1].replace(/\s*/, '')
+  				let num3 = init[2].replace(/\s*/, '')
+  				let arr = [];
+  				let arr2 = [];
+  				num1.split('').map((item, index)=>{
+  					if(!arr.includes(item)){
+  						arr.push(item)
+  						arr2.push({letter:item, num:1})
+  					}
+  				})
+  				
+  				let length = factorial(9)/factorial(9-arr.length);
+//				console.log(arr2)
+  				let result = [];
+  				
+  				
+  				
+  				
+  				
+			}
+			var exp=
+`  AAA
+*   A
+------
+= 444`
+//guessExpression(exp)
+
+
+var addTwoNumbers = function(l1, l2) {
+    var carry = [0];
+    var sum = [];
+    var length = l1.length > l2.length ? l1.length: l2.length;
+    for(var i = 0; i < length; i++){
+        let result = l1[i]+l2[i] + carry[i];
+        if(result>9) {
+            carry.push(Math.floor(result/10));
+            sum.push(result%10)
+        } else {
+            carry.push(0)
+            sum.push(result)
+        }
+    }
+    
+//  console.log(sum)
+    return sum
+};
+
+addTwoNumbers([2,4,3],[5,6,4])
+
+
+const getZodiacSign = (day, month) => {
+  // good luck
+  var dictionary = [{name: 'Aries', range: '3.21-4.19'},
+	{name: 'Taurus', range: '4.20-5.20'},
+	{name: 'Gemini', range: '5.21-6.20'},
+	{name: 'Cancer', range: '6.21-7.22'},
+	{name: 'Leo', range: '7.23-8.22'},
+	{name: 'Virgo', range: '8.23-9.22'},
+	{name: 'Libra', range: '9.23-10.22'},
+	{name: 'Scorpio', range: '10.23-11.21'},
+	{name: 'Sagittarius', range: '11.22-12.21'},
+	{name: 'Capricorn', range: '12.22-1.19'},
+	{name: 'Aquarius', range: '1.20-2.18'},
+	{name: 'Pisecs', range: '2.19-3.20'},
+	]
+  var date = ''+month+(day>9?day:'0'+day) ;
+  var result = dictionary.find((item)=>{
+    let begin = parseInt(item.range.split('-')[0].replace('.', ''))
+    let end = parseInt(item.range.split('-')[1].replace('.', ''))
+    if(end > begin){
+      if(begin <= date && date <= end){
+        return true;
+      }
+    } else {
+      if((begin <= date && date <= 1231) || (date>= 101 && date<=end)) {
+      	return true;}
+    }
+  })
+  return result.name
+}
+
+
+getZodiacSign(10,10)
+
+
+var summation = function(num) {
+	var r = 0;
+	Array(num).fill(1).map((item,index)=>{  r+=(index+1)})
+	return r
+}
+summation(8)
+function mix(s1, s2) {
+	let alpha = 'abcdefghijklmnopqrstuvwxyz'
+	let r1 = [];
+	let r2 = [];
+	for(let i = 0; i<26; i++){
+		let reg = new RegExp(alpha[i], 'g')
+		let length1 = s1.length - s1.replace(reg, '').length;
+		let length2 = s2.length - s2.replace(reg, '').length;
+		
+		if(length1 > 1 && length1 > length2){
+			r1.push('1:'+Array(length1).fill(alpha[i]).join(''))
+		}
+		if(length2 > 1 && length1 < length2){
+			r2.push('2:'+Array(length2).fill(alpha[i]).join(''))
+		}
+		if(length1 > 1 && length1 == length2){
+			r1.push('=:'+Array(length1).fill(alpha[i]).join(''))
+		}
+		 
+	}
+	r1.concat(r2)
+//	console.log(r1.concat(r2))
+	let result = r1.concat(r2).sort((a, b)=>{
+		let al = a.split(':')[1].length ;
+		let bl = b.split(':')[1].length ;
+		if(al > bl) {
+			return -1
+		}
+		if(al < bl) {
+			return 1
+		}
+		if(al == bl) {
+			if(a.split(':')[0][0].charCodeAt() < b.split(':')[0][0].charCodeAt() ) {
+				return -1
+			} 
+			if(a.split(':')[0][0].charCodeAt() > b.split(':')[0][0].charCodeAt() ) {
+				return 1
+			} 
+			if(a.split(':')[0][0].charCodeAt() == b.split(':')[0][0].charCodeAt() ) {
+				if(alpha.indexOf(a.split(':')[1][0]) < alpha.indexOf(b.split(':')[1][0]) ) {
+					return -1
+				} 
+				if(alpha.indexOf(a.split(':')[1][0]) > alpha.indexOf(b.split(':')[1][0]) ) {
+					return 1
+				} 
+			}
+		}
+		return 0;
+
+		
+		
+		
+		
+	})
+//	console.log(result.join('/'))
+	return result.join('/')
+}
+
+//mix("Are they here", "yes, they are here")
+
+function missing(s) {
+	for(let k = 1; k < Math.ceil(s.length/2); k++){
+		var begin  = 0;
+		var span = k;
+		var end = begin + span;
+		var errornum = 0;
+		var errorArr = [];
+		console.log('k', k)
+		while(end < s.length){
+			var present = s.slice(begin, end);
+			var next = present*1 +1;
+			var snext = s.slice(end, end+next.toString().length);
+			if(next.toString() != snext.toString()) {
+				errornum+=1;
+				errorArr.push(next);
+				if((next+1).toString() != s.slice(end, end+(next+1).toString().length).toString()){
+					errornum+=1;
+					
+				}
+				span = (next*1+1).toString().length;
+				 
+			} else {
+				span = (next).toString().length;
+				
+			}
+			begin = end;
+				end = begin + span;
+			
+		}
+		if(errornum == 1){
+			return errorArr.pop()
+		} 
+		
+		console.log('errornum',errornum, errorArr)
+	}
+	return -1;
+}
+
+//console.log(missing('909192939495969798100101102103') )
+
+
+function getMinBase (number) {
+	var i = Math.ceil(Math.sqrt(number - 1));
+	 
+	while(i>1){
+		var tempt = number;
+	    var arr = [];
+	    console.log(i)
+	    while(tempt > 0) {
+	    	arr.push(tempt%i)
+	      	tempt = Math.floor(tempt/i)
+	       	 
+	    }
+	    console.log(arr)
+	    if(arr.every((item)=>{return item == 1})){
+	    	return i
+	    }
+	    i = i - (arr[0]||1);
+	}
+  return number -1;
+}
+
+
+document.getElementByI = (function(func) {
+	return function() {
+//		console.log(  document.getElementById)
+		return func.apply(document, arguments)
+//		return func(arguments)
+	}
+})(document.getElementById)
+
+var getId = document.getElementByI;
+var div = getId('div1')
+console.log(div)
+
+console.log(getMinBase(67))
+
+
+
+		</script>
+		
+	</body>
+</html>

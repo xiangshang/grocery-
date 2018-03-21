@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			cars=["BMW","Volvo","Saab","Ford"];
+for (var i=0;i<cars.length;i++)
+{
+if(i  == 2) {break;}
+document.write(cars[i] + "<br>");
+}
+			var lengthOfLongestSubstring = function(s) {
+				var result = [];
+    			for(let i = 0; i < s.length-1; i++) {
+    				for(let j = i+1; j < s.length+1; j++) {
+    					console.log(s.slice(i, j))
+	    				if(!s.slice(i, j).match(/(\w).*\1/)) {
+	    					result.push(s.slice(i, j))
+	    				} else {
+	    					break;
+	    				}
+	    			}	
+    			}
+    			
+    			
+    			result.sort((a,b)=>{
+    				return b.length - a.length
+    			})
+    			console.log(result)
+    			
+			};
+			
+			lengthOfLongestSubstring('au')
+			lengthOfLongestSubstring('pwwkew')
+			
+			var reverse = function(x) {
+    var result  = '';
+    if(x<0){
+        result = parseInt(x.toString().slice(1).split('').reverse().join(''))
+    } else {
+        result = parseInt(x.toString().split('').reverse().join(''))
+    }
+    console.log(x);
+    if(result > parseInt(Array(31).fill(1).join(''), 2)) {
+    	return 0
+    } else {
+    	return x>0?result:-result;
+    }
+    
+};
+
+reverse(234)
+		</script>
+	</body>
+</html>

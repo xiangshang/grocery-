@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+			<style>
+		    body {
+		        width: 300px;
+		        position: relative;
+		    }
+		 
+		    .aside {
+		        width: 100px;
+		        height: 150px;
+		        float: left;
+		        background: #f66;
+		    }
+		 
+		    .main {
+		        height: 200px;
+		        background: #fcc;
+		    }
+		</style>
+	</head>
+<body>
+    <div class="aside"></div>
+    <div class="main"></div>
+    <script type="text/javascript">
+    	class Foo {
+    		constructor() {
+    			this.x=1;
+    		}
+    		print = () => {
+    			console.log(this.x)
+    		}
+    	}
+    	let f = new Foo();
+    	f.print.call({x:2})
+    </script>
+</body>
+</html>

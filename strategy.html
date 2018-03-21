@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<label for="jixiao">绩效<input type="text" id='jixiao'/></label>
+		<button id='btn'>计算</button>
+		<br />
+		结果：<div id="result"></div>
+		<script type="text/javascript">
+			var Strategy = {
+				'a': function(...args) {
+					return 4
+				},
+				'b': function(...args) {
+					return 3
+				},
+				'c': function(...args) {
+					return 2
+				}
+			}
+			document.getElementById('btn').onclick = function() {
+				var score = document.getElementById('jixiao').value;
+				var result = Strategy[score]();
+				document.getElementById('result').innerHTML = result;
+			}
+		</script>
+	</body>
+</html>

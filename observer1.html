@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div style="display: flex; flex-direction: row;justify-content: space-evenly;">
+			<div id='site1' style="border-right: 1px solid #000;">123</div>
+			<div id='site2'>132</div>
+			
+		</div>
+		<input type="text" name="ipt" id="ipt" value="" />
+		<button id='btn1'>button1</button>
+		<button id='btn2'>button2</button>
+		<button id='btn3'>button3</button>
+		<script type="text/javascript">
+			var Observer = {}
+			Observer.eventlist = {};
+			Observer.Listner = function(key, fn) {
+				if(key in this.eventlist) {
+					this.eventlist[key].push(fn)
+				} else {
+					this.eventlist[key] = [];
+					this.eventlist[key].push(fn)
+				}
+			}
+
+			Observer.Sender = function(...arg) {
+				console.log(arg)
+				let key = arg[0]
+				if(key in this.eventlist) {
+					for(var i in this.eventlist[key]) {
+						this.eventlist[key][i](...arg);
+					}
+				}
+				
+			}
+
+			! function() {
+				Observer.Listner('key1', function(...arg) {
+					document.getElementById('site1').innerHTML = arg[1]
+				})
+				Observer.Listner('key2', function(...arg) {
+					document.getElementById('site2').innerHTML = arg[1]
+				})
+
+			}()
+			document.getElementById('btn1').onclick = function() {
+				var txt = document.getElementById('ipt').value || 0;
+				Observer.Sender('key1', txt)
+
+			}
+			document.getElementById('btn2').onclick = function() {
+				var txt = document.getElementById('ipt').value || 0;
+				Observer.Sender('key2', txt)
+
+			}
+			document.getElementById('btn3').onclick = function() {
+				var txt = document.getElementById('ipt').value || 0;
+				Observer.Sender('key1', txt)
+				Observer.Sender('key2', txt)
+
+			}
+		</script>
+	</body>
+
+</html>

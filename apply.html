@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button onclick="(wins.func)()"></button>
+		<script type="text/javascript">
+			function A (name) {
+				this.name = name;
+			}
+			
+			A.prototype.getName = function () {
+				console.log(this.name)
+			}
+			
+			var a1 = new A('Tom');
+			a1.getName()
+			var a2 = new A('Jweey');
+			A.prototype.getName = function() {
+				console.log('hello'+ this.name)
+			}
+			
+			a2.getName()
+			a1.getName()
+			
+			var wins = {
+				type: 2,
+				alert2: function(par){
+					console.log(par)
+					alert(this.type)
+				},
+				func:function() {
+					console.log(this)
+					this.alert2(this.type)
+				}
+				
+			} 
+		</script>
+	</body>
+</html>

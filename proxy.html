@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+//			let handler = {
+//				get: function(target, name) {
+//					return name in target ? target[name]:37;
+//				}
+//			}
+//			let p = new Proxy({}, handler)
+//			p.a = 1;
+//			p.b = undefined;
+//			console.log(p.a, p.b)
+//			console.log('c' in p, p.c)
+//			
+//			Q1: handler对象是哪些?参数是什么,意义是什么?
+//			let target = {};
+//			let p = new Proxy(target, {});
+//			p.a = 38;
+//			console.log(target.a)
+//			
+
+//			let validator = {
+//				set: function(obj, prop, value) {
+//					if(prop === 'age'){
+//						if(!Number.isInteger(value)) {
+//							throw new TypeError('The age is not an integer');
+//						}
+//						if(value>200){
+//							throw new RangeError('The age seems invalid');
+//						}
+//					}
+//					obj[prop] = value;
+//				}
+//			}
+			
+//			let person = new Proxy({}, validator);
+//			person.age = 100;
+//			console.log(person.age)
+//			
+//			person.age = 'young';
+//			
+//			parson.age = 300;
+//			
+//			
+//			function extend(sup, base){
+//				var descriptor = Object.getOwnPropertyDescriptor(base.prototype, 'constructor')
+//				base.prototype = Object.create(sup.prototype);
+//				var handler = {
+//					construct: function(target, args) {
+//						var obj = Object.create(base.prototype);
+//						this.apply(target, obj, args);
+//						return obj
+//					},
+//					apply: function(target, that, args){
+//						sup.apply(that, args);
+//						base.apply(that, args);
+//						
+//					}
+//				}
+//				var proxy = new Proxy(base, )
+//			}
+//			
+			
+//			
+//			function s2n (s) {
+//				if(s.indexOf('.')>-1){
+//					let decimal = s.split('.')[0]
+//					let partial = s.split('.')[1]
+//					partial = partial.replace(/0*$/, '')
+//					let num = partial.length;
+//					
+//					return {number: decimal+partial, count: num}
+//				} else {
+//					return {number: s, count: 0}
+//				}
+//				
+//			}
+//			
+//function multiply(n, o){
+//n1 = s2n(n);
+//o1 = s2n(o);
+//
+//console.log(n1);
+//console.log(o1)
+//let result = (parseInt(n1.number)*parseInt(o1.number))
+//result = result + ''
+//if(n1.count+o1.count == 0){
+//	return result
+//} 
+//return result.slice(0,-(n1.count+o1.count))+'.'+result.slice(-(n1.count+o1.count))
+//}
+//			console.log(s2n('-0.0000'))
+//			console.log(multiply('2.01', '3.0000'))
+//			console.log(multiply('2', '3'))
+
+
+function add(n1, n2){
+	//integer
+	var carry = [];
+	var bits1 = n1.toString().split('');
+	var bits2 = n2.toString().split('');
+	var length = bits1.length > bits2.length? bits1.length: bits2.length;
+	var output = [];
+	for(var i =1; i<=length+1; i++){
+		var bit1 = bits1[bits1.length-i] || 0;
+		var bit2 = bits2[bits2.length-i] || 0;
+		var carrybit = carry[length - i] || 0;
+		var result = parseInt(bit1) + parseInt(bit2) + parseInt(carrybit);
+		if(result.toString().length > 1 ) {
+			output.unshift(result.toString().slice(-1))
+			carry[length - i - 1] = result.toString().slice(0,1)
+		} else {
+			output.unshift(result)
+		}
+	}
+	return output.join('')*1;
+}
+
+function addnum(n1, n2) {
+	var n1arr = n1.split('.');
+	var n2arr = n2.split('.')
+	var integer = add(n1arr[0], n2arr[0]);
+	var length = '';
+	if(n1arr[1].length > n2arr[1].length) {
+		length = n1arr[1].length;
+		for(var i = 0; i<length-n2arr[1].length; i++){
+			n2arr[1] = n2arr[1] + '0';
+		}
+	} else {
+		length = n2arr[1].length;
+		for(var i = 0; i<length-n1arr[1].length; i++){
+			n1arr[1] = n1arr[1] + '0';
+		}
+	}
+	var decimal = add(n1arr[1], n2arr[1])
+	if(decimal.toString().length > 1) {
+		integer = parseInt(integer) + parseInt(decimal.toString().slice(0,1))
+		
+	}
+	
+	console.log(integer.toString()+'.'+decimal.toString().slice(1))
+	return integer.toString()+'.'+decimal.toString().slice(1);
+}
+
+addnum('21.61','4.9')
+		</script>
+	</body>
+</html>
